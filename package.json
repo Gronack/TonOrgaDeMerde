@@ -1,8 +1,1 @@
-"dependencies": {
-  "vite": "^5.2.0",               
-  "react": "...",
-  "react-dom": "..."
-},
-"devDependencies": {
 
-}
