@@ -3,24 +3,25 @@ const passport = require("passport");
 
 const router = express.Router();
 
+// URL vers ton frontend hébergé (modifiable via .env pour dev/prod)
 const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:5173";
 
-// Redirige l'utilisateur vers Discord
+// 👉 Démarre l'authentification Discord
 router.get("/discord", passport.authenticate("discord"));
 
-// Discord redirige ici après l'authentification
+// 👉 Callback de Discord après connexion
 router.get(
   "/discord/redirect",
   passport.authenticate("discord", {
-    failureRedirect: `${FRONTEND_URL}/auth/failed`
+    failureRedirect: `${FRONTEND_URL}/auth/failed`,
+    session: true
   }),
-  function (req, res) {
-    // Redirige vers le frontend après connexion
-    res.redirect(FRONTEND_URL);
+  (req, res) => {
+    res.redirect(FRONTEND_URL); // Redirige vers le front si succès
   }
 );
 
-// Récupère l'utilisateur actuellement connecté
+// 👉 Récupère l'utilisateur connecté
 router.get("/user", (req, res) => {
   if (req.user) {
     res.json(req.user);
@@ -29,7 +30,7 @@ router.get("/user", (req, res) => {
   }
 });
 
-// Route de déconnexion
+// 👉 Déconnexion
 router.get("/logout", (req, res) => {
   req.logout(() => {
     res.redirect(FRONTEND_URL);
