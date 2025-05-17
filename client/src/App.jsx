@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import Dashboard from "./pages/Dashboard";
 import { fetchUser } from "./services/userService";
 import LoginButton from "./components/LoginButton";
+import UserStatus from "./components/UserStatus";
 
 export default function App() {
   const [user, setUser] = useState(null);
