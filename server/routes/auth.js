@@ -17,7 +17,8 @@ router.get(
     session: true
   }),
   (req, res) => {
-    // Auth réussie, rediriger vers l'interface utilisateur
+    // Ici, req.user doit exister
+    console.log("✅ Connecté via Discord :", req.user);
     res.redirect(FRONTEND_URL);
   }
 );
