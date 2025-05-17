@@ -7,7 +7,7 @@ module.exports = function(passport) {
   passport.use(new DiscordStrategy({
     clientID: process.env.DISCORD_CLIENT_ID,
     clientSecret: process.env.DISCORD_CLIENT_SECRET,
-    callbackURL: "https://TON_BACKEND_RENDER.onrender.com/auth/discord/redirect",
+    callbackURL: process.env.DISCORD_CALLBACK_URL,
     scope: ['identify']
   },
   (accessToken, refreshToken, profile, done) => {
