@@ -1,6 +1,6 @@
 export default function LoginButton() {
   const handleLogin = () => {
-    window.location.href = "http://localhost:3001/auth/discord";
+    window.location.href = `${import.meta.env.VITE_API_URL}/auth/discord`;
   };
 
   return (
