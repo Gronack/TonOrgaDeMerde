@@ -11,5 +11,6 @@
   },
   "scripts": {
     "start": "node index.js"
+    "postinstall": "chmod +x node_modules/.bin/vite"
   }
 }
