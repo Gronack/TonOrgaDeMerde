@@ -3,13 +3,13 @@ const passport = require("passport");
 
 const router = express.Router();
 
-// URL vers ton frontend hébergé (modifiable via .env pour dev/prod)
+// URL du frontend (environnement de production ou fallback local)
 const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:5173";
 
-// 👉 Démarre l'authentification Discord
+// 👉 Lancer l'authentification avec Discord
 router.get("/discord", passport.authenticate("discord"));
 
-// 👉 Callback de Discord après connexion
+// 👉 Callback après authentification Discord
 router.get(
   "/discord/redirect",
   passport.authenticate("discord", {
@@ -17,13 +17,14 @@ router.get(
     session: true
   }),
   (req, res) => {
-    res.redirect(FRONTEND_URL); // Redirige vers le front si succès
+    // Auth réussie, rediriger vers l'interface utilisateur
+    res.redirect(FRONTEND_URL);
   }
 );
 
-// 👉 Récupère l'utilisateur connecté
+// 👉 Récupération de l'utilisateur connecté
 router.get("/user", (req, res) => {
-  if (req.user) {
+  if (req.isAuthenticated()) {
     res.json(req.user);
   } else {
     res.status(401).json({ message: "Utilisateur non connecté" });
@@ -33,6 +34,7 @@ router.get("/user", (req, res) => {
 // 👉 Déconnexion
 router.get("/logout", (req, res) => {
   req.logout(() => {
+    res.clearCookie("connect.sid"); // Facultatif : vider le cookie manuellement
     res.redirect(FRONTEND_URL);
   });
 });
