@@ -15,7 +15,7 @@ export default function App() {
 
   return (
     <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4">Bouges toi pour tes events Célia</h1>
+      <h1 className="text-2xl font-bold mb-4">---</h1>
       <Dashboard />
 
       {!user ? (
