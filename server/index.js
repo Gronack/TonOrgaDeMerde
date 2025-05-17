@@ -20,6 +20,7 @@ app.use(cors({
 
 app.use(express.json());
 app.use(cookieParser()); // 🔥 Nécessaire pour les cookies de session
+app.set("trust proxy", 1); // ✅ indispensable sur Render
 
 // 🔐 Session : partage les cookies correctement sur HTTPS
 app.use(session({
