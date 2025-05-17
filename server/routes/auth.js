@@ -3,6 +3,8 @@ const passport = require("passport");
 
 const router = express.Router();
 
+const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:5173";
+
 // Redirige l'utilisateur vers Discord
 router.get("/discord", passport.authenticate("discord"));
 
@@ -10,11 +12,11 @@ router.get("/discord", passport.authenticate("discord"));
 router.get(
   "/discord/redirect",
   passport.authenticate("discord", {
-    failureRedirect: "/auth/failed"
+    failureRedirect: `${FRONTEND_URL}/auth/failed`
   }),
   function (req, res) {
     // Redirige vers le frontend après connexion
-    res.redirect("http://localhost:5173");
+    res.redirect(FRONTEND_URL);
   }
 );
 
@@ -27,10 +29,10 @@ router.get("/user", (req, res) => {
   }
 });
 
-// Route de déconnexion (optionnelle mais utile)
+// Route de déconnexion
 router.get("/logout", (req, res) => {
   req.logout(() => {
-    res.redirect("http://localhost:5173");
+    res.redirect(FRONTEND_URL);
   });
 });
 
