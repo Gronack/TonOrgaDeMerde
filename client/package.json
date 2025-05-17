@@ -29,3 +29,7 @@
     "vite": "^6.3.5"
   }
 }
+
+"scripts": {
+  "postinstall": "chmod +x node_modules/.bin/vite"
+}
